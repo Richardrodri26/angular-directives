@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-counter-page',
-  standalone: true,
-  imports: [],
   templateUrl: './counterPage.component.html',
   styleUrl: './counterPage.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CounterPageComponent { }
+export class CounterPageComponent {
+
+  public counter = signal(10);
+  public squareCounter = computed(() => this.counter() * this.counter());
+
+  increaseBy(value: number) {
+    // this.counter.set(this.counter() + value);
+    this.counter.update((counter) => counter + value);
+  }
+
+ }
